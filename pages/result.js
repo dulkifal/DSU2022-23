@@ -117,7 +117,7 @@ export default Home;
         </div>
       </div>
       <div className="card m-3 ">
-        <h1 className="text-center pt-3">Trasurer Candidates</h1>
+        <h1 className="text-center pt-3">Treasurer Candidates</h1>
         <div className="card-body d-flex flex-row justify-content-around">
           <div>
             <Image
