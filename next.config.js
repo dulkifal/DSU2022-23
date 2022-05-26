@@ -5,6 +5,6 @@ module.exports = {
     publicRuntimeConfig: {
         apiUrl: process.env.NODE_ENV === 'development'
             ? 'http://localhost:3000/api' // development api
-            : 'https://dsu-2022-23.vercel.app' // production api
+            : 'https://dsu-2022-23.vercel.app/api' // production api
     }
 }
