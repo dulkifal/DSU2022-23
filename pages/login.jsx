@@ -44,11 +44,11 @@ function Login() {
     return (
         <div className="col-md-6 offset-md-3 mt-5">
             <div className="alert alert-info">
-                Username: test<br />
-                Password: test
+                Username: Your Enrol Number<br />
+                Password: Your Enrol Number
             </div>
             <div className="card">
-                <h4 className="card-header">Next.js JWT Login Example</h4>
+                <h4 className="card-header">DSU 2022-23 Election Login for vote</h4>
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">

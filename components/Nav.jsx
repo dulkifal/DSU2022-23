@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import Image from 'next/dist/client/image';
 import { NavLink } from '.';
 import { userService } from 'services';
 
@@ -23,8 +23,10 @@ function Nav() {
     return (
         <nav className="navbar navbar-expand navbar-dark bg-dark">
             <div className="navbar-nav">
-                <NavLink href="/" exact className="nav-item nav-link">Home</NavLink>
-                <a onClick={logout} className="nav-item nav-link">Logout</a>
+                <Image src="/bg.png" className=''  width={80} height={80} />
+                <NavLink href="/" exact className="m-auto  px-5 nav-item nav-link">Home</NavLink>
+                <a onClick={logout} className="m-auto px-5 nav-item nav-link">Logout</a>
+                <h4 className="px-5 card-header text-white m-auto">DSU 2022-23 Election You are logged in for vote </h4>
             </div>
         </nav>
     );
