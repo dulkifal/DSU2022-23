@@ -28,7 +28,8 @@ function Home() {
   useEffect(() => {
     userService.getAll().then((x) => setUsers(x));
   }, []);
-   
+    
+  // console.log(users)
 
   return (
     <div className="mx-auto">
@@ -159,10 +160,13 @@ function Home() {
             />
             <h5 className="card-title">Card title</h5>
             <button
-              className="btn btn-block btn-primary"
+              className="btnvote btn btn-block btn-primary "
               disabled={three}
               onClick={() => {
-                voteTraserur2() & setThree(true);
+                voteTraserur2()
+                 &  setThree(true) 
+
+                ;
               }}
             >
               Vote

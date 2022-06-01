@@ -1,3 +1,10 @@
+import initFirebase from '../../../utils/config';
+import { getFirestore } from "firebase/firestore";
+const db = getFirestore(initFirebase());
+
+import { collection, addDoc} from "firebase/firestore";
+
+
 const jwt = require('jsonwebtoken');
 import getConfig from 'next/config';
 
@@ -21,10 +28,11 @@ function handler(req, res) {
     function authenticate() {
         const { username, password } = req.body;
         const user = users.find(u => u.username === username && u.password === password);
-
+        // console.log(user);
+        updataUser(user)
         if (!user) throw 'Username or password is incorrect';
     
-        // create a jwt token that is valid for 7 days
+        // create a jwt614614614 token that is valid for 7 days
         const token = jwt.sign({ sub: user.id }, serverRuntimeConfig.secret, { expiresIn: '7d' });
     
         // return basic user details and token
@@ -36,4 +44,16 @@ function handler(req, res) {
             token
         });
     }
+
+    
+}
+
+async function updataUser( user){
+    try {
+        const docRef = await addDoc(collection(db, "users"), user
+        );
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
 }
