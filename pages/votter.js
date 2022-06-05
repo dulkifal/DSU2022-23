@@ -6,41 +6,33 @@ import { collection,getDocs } from "firebase/firestore";
 
 import { useState } from 'react/';
 
-const arr = []
 
-export default  function votter() {
-  const [arrs , setarr] = useState([]);
-   
+export default  function votter(user) {
+  
   return (
     <div>
       <h1>Votters</h1>
       <p>who votted</p>
-      <button
-        onClick={async () => {
-          const users = await getDocs(collection(db, "users"));
-          users.forEach((user) => {
-            arr.push(user.data())
-             
-          
-          });
-          // console.log(arr)
-          setarr(arr)
-        }}
-      >Get Total</button>
-      {           
-         console.log(arrs) &
-        arrs.forEach(user => (
-          console.log(user.Name)&
-          <table className="table">
-            <tr>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Sem</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {user[0].map(user => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
               <td>{user.Name}</td>
               <td>{user.sem}</td>
-              <td>{user.id}</td>
             </tr>
-
-          </table>
-        ))
-      }
+          ))}
+        </tbody>
+      </table>
     
 
     </div>
@@ -48,8 +40,16 @@ export default  function votter() {
   );
 }
 
-async function getVotter(){
-  const users = await getDocs(collection(db, "users"));
-  return users
 
-}
+votter.getInitialProps = async (ctx) => {
+  const user = await (await getDocs(collection(db, "users")))
+  const arr = [];
+  user.forEach(element => {
+    // console.log(element.data());
+    arr.push(element.data());
+  });
+  return  [arr];
+    
+  
+};
+ 
