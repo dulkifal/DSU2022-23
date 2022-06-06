@@ -1,8 +1,8 @@
 import initFirebase from '../../../utils/config';
-import { getFirestore } from "firebase/firestore";
+import { DocumentSnapshot, getFirestore } from "firebase/firestore";
 const db = getFirestore(initFirebase());
 
-import { collection, addDoc} from "firebase/firestore";
+import { collection, getDocs, addDoc, query, where} from "firebase/firestore";
 
 
 const jwt = require('jsonwebtoken');
@@ -25,34 +25,48 @@ function handler(req, res) {
             return res.status(405).end(`Method ${req.method} Not Allowed`)
     }
 
-    function authenticate() {
+    async function authenticate() {
         const { username, password } = req.body;
         const user = users.find(u => u.username === username && u.password === password);
         // console.log(user);
-        updataUser(user)
+        var updatedUser = await updataUser(user)
         if (!user) throw 'Username or password is incorrect';
     
         // create a jwt614614614 token that is valid for 7 days
         const token = jwt.sign({ sub: user.id }, serverRuntimeConfig.secret, { expiresIn: '7d' });
-    
         // return basic user details and token
-        return res.status(200).json({
-            id: user.id,
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
+        const response = {
+            id: updatedUser.id,
+            username: updatedUser.username,
+            name: updatedUser.Name,
+            president: updatedUser.president ?? false,
+            secretary: updatedUser.secretary ?? false,
+            traserur: updatedUser.traserur ?? false,
             token
-        });
+        };
+        console.log(response);
+        return res.status(200).json(response);
     }
 
     
 }
 
-async function updataUser( user){
-    try {
-        const docRef = await addDoc(collection(db, "users"), user
-        );
-        console.log("Document written with ID: ", docRef.id);
+async function updataUser(user){
+    try { 
+        const q = query(collection(db, "users"), where("id", "==", user.id));
+        const querySnapshot = await getDocs(q);
+        console.log("Check");
+        if (!querySnapshot.empty) {
+            return querySnapshot.docs[0].data();
+        } else {
+            const docRef = await addDoc(collection(db, "users"), user);
+            console.log("Document written with ID: ", docRef.id);
+            return {
+                id: user.id,
+                username: user.username,
+                name: user.Name,
+            };
+        } 
       } catch (e) {
         console.error("Error adding document: ", e);
       }

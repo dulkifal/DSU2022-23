@@ -1,5 +1,5 @@
 import initFirebase from "../utils/config";
-import { getFirestore } from "firebase/firestore";
+import { getDoc, query, where, getFirestore } from "firebase/firestore";
 const db = getFirestore(initFirebase());
 
 import { useState, useEffect } from "react";
@@ -20,9 +20,9 @@ import {
 export default Home;
 
 function Home() {
-  const [one, setOne] = useState(false);
-  const [two, setTwo] = useState(false);
-  const [three, setThree] = useState(false);
+  const [one, setOne] = useState(JSON.parse(localStorage.getItem("user"))["president"] ?? false);
+  const [two, setTwo] = useState(JSON.parse(localStorage.getItem("user"))["secretary"] ?? false);
+  const [three, setThree] = useState(JSON.parse(localStorage.getItem("user"))["traserur"] ?? false);
   const [users, setUsers] = useState(null);
 
   useEffect(() => {
@@ -182,6 +182,7 @@ function Home() {
 
 const votePresident1 = async () => {
   try {
+    storeVotesInUser("president");
     const querySnapshot = await getDocs(collection(db, "votes"));
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data().name2}`);
@@ -197,6 +198,7 @@ const votePresident1 = async () => {
 
 const votePresident2 = async () => {
   try {
+    storeVotesInUser("president");
     const querySnapshot = await getDocs(collection(db, "votes"));
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data().name2}`);
@@ -212,6 +214,7 @@ const votePresident2 = async () => {
 
 const voteSecretary1 = async () => {
   try {
+    storeVotesInUser("secretary");
     const querySnapshot = await getDocs(collection(db, "votes"));
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data().name2}`);
@@ -227,6 +230,7 @@ const voteSecretary1 = async () => {
 
 const voteSecretary2 = async () => {
   try {
+    storeVotesInUser("secretary");
     const querySnapshot = await getDocs(collection(db, "votes"));
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data().name2}`);
@@ -241,6 +245,7 @@ const voteSecretary2 = async () => {
 };
 const voteTraserur1 = async () => {
   try {
+    storeVotesInUser("traserur");
     const querySnapshot = await getDocs(collection(db, "votes"));
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data().name2}`);
@@ -255,6 +260,7 @@ const voteTraserur1 = async () => {
 };
 const voteTraserur2 = async () => {
   try {
+    storeVotesInUser("traserur");
     const querySnapshot = await getDocs(collection(db, "votes"));
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data().name2}`);
@@ -267,3 +273,18 @@ const voteTraserur2 = async () => {
     console.error("Error updating document: ", e);
   }
 };
+async function storeVotesInUser(key) {
+  const user = JSON.parse(localStorage.getItem("user")); 
+  const q = query(collection(db, "users"), where("id", "==", user.id));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((document) => {
+    // doc.data() is never undefined for query doc snapshots
+    updateDoc(doc(db, "users", document.id), {
+      [key]: true
+    }).then((value) => {
+      user[key] = true
+      localStorage.setItem("user", JSON.stringify(user));
+    });;
+  })
+  console.log(user);
+}
