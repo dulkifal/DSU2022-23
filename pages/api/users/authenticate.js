@@ -41,7 +41,7 @@ function handler(req, res) {
             name: updatedUser.Name,
             president: updatedUser.president ?? false,
             secretary: updatedUser.secretary ?? false,
-            traserur: updatedUser.traserur ?? false,
+            treasurer: updatedUser.treasurer ?? false,
             token
         };
         console.log(response);

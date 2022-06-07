@@ -1,5 +1,5 @@
 import initFirebase from "../utils/config";
-import { getDoc, query, where, getFirestore } from "firebase/firestore";
+import { query, where, getFirestore } from "firebase/firestore";
 const db = getFirestore(initFirebase());
 
 import { useState, useEffect } from "react";
@@ -8,33 +8,28 @@ import { userService } from "services";
 import Image from "next/image";
 import { Logout } from "components/logout";
 
-import {
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  increment,
-  updateDoc,
-} from "firebase/firestore";
+import {collection,getDocs,doc,increment, updateDoc} from "firebase/firestore";
 
 export default Home;
 
 function Home() {
-  const [one, setOne] = useState(JSON.parse(localStorage.getItem("user"))["president"] ?? false);
-  const [two, setTwo] = useState(JSON.parse(localStorage.getItem("user"))["secretary"] ?? false);
-  const [three, setThree] = useState(JSON.parse(localStorage.getItem("user"))["traserur"] ?? false);
+  const [one, setOne] = useState(
+    JSON.parse(localStorage.getItem("user"))["president"] ?? false
+  );
+  const [two, setTwo] = useState(
+    JSON.parse(localStorage.getItem("user"))["secretary"] ?? false
+  );
+  const [three, setThree] = useState(
+    JSON.parse(localStorage.getItem("user"))["treasurer"] ?? false
+  );
   const [users, setUsers] = useState(null);
 
   useEffect(() => {
     userService.getAll().then((x) => setUsers(x));
   }, []);
-    
-  // console.log(users)
 
   return (
     <div className="mx-auto">
-      
-
       <div className="card m-3 ">
         <h1 className="text-center pt-3 "> Presidential Candidates</h1>
 
@@ -51,8 +46,7 @@ function Home() {
               className="btn btn-block btn-primary"
               disabled={one}
               onClick={() => {
-                voteThisCadidate('president1')
-                & setOne(true);
+                voteThisCadidate("president1", "president") & setOne(true);
               }}
             >
               Vote
@@ -69,7 +63,7 @@ function Home() {
             <button
               className="btn btn-block btn-primary"
               onClick={() => {
-                voteThisCadidate('president2') & setOne(true);
+                voteThisCadidate("president2", "president") & setOne(true);
               }}
               disabled={one}
             >
@@ -94,7 +88,7 @@ function Home() {
               className="btn btn-block btn-primary"
               disabled={two}
               onClick={() => {
-                voteThisCadidate('secretary1') & setTwo(true);
+                voteThisCadidate("secretary1", "secretary") & setTwo(true);
               }}
             >
               Vote
@@ -112,7 +106,7 @@ function Home() {
               className="btn btn-block btn-primary"
               disabled={two}
               onClick={() => {
-                voteThisCadidate('secretary2') & setTwo(true);
+                voteThisCadidate("secretary2", "secretary") & setTwo(true);
               }}
             >
               Vote
@@ -135,7 +129,7 @@ function Home() {
               className="btn btn-block btn-primary"
               disabled={three}
               onClick={() => {
-                voteThisCadidate('treasurer1') & setThree(true);
+                voteThisCadidate("treasurer1", "treasurer") & setThree(true);
               }}
             >
               Vote
@@ -153,7 +147,7 @@ function Home() {
               className="btnvote btn btn-block btn-primary "
               disabled={three}
               onClick={() => {
-                voteThisCadidate('treasurer2') & setThree(true);
+                voteThisCadidate("treasurer2", "treasurer") & setThree(true);
               }}
             >
               Vote
@@ -161,42 +155,39 @@ function Home() {
           </div>
         </div>
       </div>
-      <Logout/>
-      
+      <Logout />
     </div>
   );
 }
 
-
-const voteThisCadidate = async  (candidate) => {
+async function voteThisCadidate(candidate, position) {
   try {
-    storeVotesInUser("president");
+    storeVotesInUser(position);
     const querySnapshot = await getDocs(collection(db, "votes"));
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data().name2}`);
     });
     await updateDoc(doc(db, "votes", "candidates"), {
-      candidate: increment(1),
+      [candidate]: increment(1),
     });
     console.log("Document updated with ID: ", doc.id);
   } catch (e) {
     console.error("Error updating document: ", e);
   }
-};
+}
 
- 
 async function storeVotesInUser(key) {
-  const user = JSON.parse(localStorage.getItem("user")); 
+  const user = JSON.parse(localStorage.getItem("user"));
   const q = query(collection(db, "users"), where("id", "==", user.id));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((document) => {
     // doc.data() is never undefined for query doc snapshots
     updateDoc(doc(db, "users", document.id), {
-      [key]: true
+      [key]: true,
     }).then((value) => {
-      user[key] = true
+      user[key] = true;
       localStorage.setItem("user", JSON.stringify(user));
-    });;
-  })
+    });
+  });
   console.log(user);
 }
