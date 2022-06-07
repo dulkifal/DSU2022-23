@@ -37,7 +37,7 @@ votter.getInitialProps = async (ctx) => {
   const user = await (await getDocs(collection(db, "users")))
   const arr = [];
   user.forEach(element => {
-    // console.log(element.data());
+    console.log(element.data());
     arr.push(element.data());
   });
   return  [arr];

@@ -33,18 +33,7 @@ function Home() {
 
   return (
     <div className="mx-auto">
-      <div className="card mt-4">
-        <div className="card-body m-auto">
-          {users && (
-            <ul>
-              {/* {users.map((user) => (
-              ))} */}
-              <h1>Hi , You can choose your Leader</h1>
-            </ul>
-          )}
-          {!users && <div className="spinner-border spinner-border-sm"></div>}
-        </div>
-      </div>
+      
 
       <div className="card m-3 ">
         <h1 className="text-center pt-3 "> Presidential Candidates</h1>
@@ -62,7 +51,8 @@ function Home() {
               className="btn btn-block btn-primary"
               disabled={one}
               onClick={() => {
-                votePresident1() & setOne(true);
+                voteThisCadidate('president1')
+                & setOne(true);
               }}
             >
               Vote
@@ -79,7 +69,7 @@ function Home() {
             <button
               className="btn btn-block btn-primary"
               onClick={() => {
-                votePresident2() & setOne(true);
+                voteThisCadidate('president2') & setOne(true);
               }}
               disabled={one}
             >
@@ -104,7 +94,7 @@ function Home() {
               className="btn btn-block btn-primary"
               disabled={two}
               onClick={() => {
-                voteSecretary1() & setTwo(true);
+                voteThisCadidate('secretary1') & setTwo(true);
               }}
             >
               Vote
@@ -122,7 +112,7 @@ function Home() {
               className="btn btn-block btn-primary"
               disabled={two}
               onClick={() => {
-                voteSecretary2() & setTwo(true);
+                voteThisCadidate('secretary2') & setTwo(true);
               }}
             >
               Vote
@@ -145,7 +135,7 @@ function Home() {
               className="btn btn-block btn-primary"
               disabled={three}
               onClick={() => {
-                voteTraserur1() & setThree(true);
+                voteThisCadidate('treasurer1') & setThree(true);
               }}
             >
               Vote
@@ -163,10 +153,7 @@ function Home() {
               className="btnvote btn btn-block btn-primary "
               disabled={three}
               onClick={() => {
-                voteTraserur2()
-                 &  setThree(true) 
-
-                ;
+                voteThisCadidate('treasurer2') & setThree(true);
               }}
             >
               Vote
@@ -180,7 +167,8 @@ function Home() {
   );
 }
 
-const votePresident1 = async () => {
+
+const voteThisCadidate = async  (candidate) => {
   try {
     storeVotesInUser("president");
     const querySnapshot = await getDocs(collection(db, "votes"));
@@ -188,7 +176,7 @@ const votePresident1 = async () => {
       console.log(`${doc.id} => ${doc.data().name2}`);
     });
     await updateDoc(doc(db, "votes", "candidates"), {
-      president1: increment(1),
+      candidate: increment(1),
     });
     console.log("Document updated with ID: ", doc.id);
   } catch (e) {
@@ -196,83 +184,7 @@ const votePresident1 = async () => {
   }
 };
 
-const votePresident2 = async () => {
-  try {
-    storeVotesInUser("president");
-    const querySnapshot = await getDocs(collection(db, "votes"));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data().name2}`);
-    });
-    await updateDoc(doc(db, "votes", "candidates"), {
-      president2: increment(1),
-    });
-    console.log("Document updated with ID: ", doc.id);
-  } catch (e) {
-    console.error("Error updating document: ", e);
-  }
-};
-
-const voteSecretary1 = async () => {
-  try {
-    storeVotesInUser("secretary");
-    const querySnapshot = await getDocs(collection(db, "votes"));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data().name2}`);
-    });
-    await updateDoc(doc(db, "votes", "candidates"), {
-      secretary1: increment(1),
-    });
-    console.log("Document updated with ID: ", doc.id);
-  } catch (e) {
-    console.error("Error updating document: ", e);
-  }
-};
-
-const voteSecretary2 = async () => {
-  try {
-    storeVotesInUser("secretary");
-    const querySnapshot = await getDocs(collection(db, "votes"));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data().name2}`);
-    });
-    await updateDoc(doc(db, "votes", "candidates"), {
-      secretary2: increment(1),
-    });
-    console.log("Document updated with ID: ", doc.id);
-  } catch (e) {
-    console.error("Error updating document: ", e);
-  }
-};
-const voteTraserur1 = async () => {
-  try {
-    storeVotesInUser("traserur");
-    const querySnapshot = await getDocs(collection(db, "votes"));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data().name2}`);
-    });
-    await updateDoc(doc(db, "votes", "candidates"), {
-      treasurer1: increment(1),
-    });
-    console.log("Document updated with ID: ", doc.id);
-  } catch (e) {
-    console.error("Error updating document: ", e);
-  }
-};
-const voteTraserur2 = async () => {
-  try {
-    storeVotesInUser("traserur");
-    const querySnapshot = await getDocs(collection(db, "votes"));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data().name2}`);
-    });
-    await updateDoc(doc(db, "votes", "candidates"), {
-      treasurer2: increment(1),
-    });
-    console.log("Document updated with ID: ", doc.id);
-  } catch (e) {
-    console.error("Error updating document: ", e);
-  }
-};
+ 
 async function storeVotesInUser(key) {
   const user = JSON.parse(localStorage.getItem("user")); 
   const q = query(collection(db, "users"), where("id", "==", user.id));
