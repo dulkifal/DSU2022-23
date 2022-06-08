@@ -10,9 +10,9 @@ import { Logout } from "components/logout";
 
 import {collection,getDocs,doc,increment, updateDoc} from "firebase/firestore";
 
-export default Home;
-
-function Home() {
+export default function Home() {
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+  console.log(currentUser);
   const [one, setOne] = useState(
     JSON.parse(localStorage.getItem("user"))["president"] ?? false
   );
@@ -31,6 +31,7 @@ function Home() {
   return (
     <div className="mx-auto">
       <div className="card m-3 ">
+        <h1 className="text-center">Hi {currentUser.name},<br></br> vote for only one candidate from each pair </h1>
         <h1 className="text-center pt-3 "> Presidential Candidates</h1>
 
         <div className="card-body d-flex flex-row justify-content-around">
@@ -46,12 +47,14 @@ function Home() {
               className="btn btn-block btn-primary"
               disabled={one}
               onClick={() => {
-                voteThisCadidate("president1", "president") & setOne(true);
+                voteThisCadidate("president1", "president") & setOne(true)
+                & handleClick(event);
               }}
             >
               Vote
             </button>
           </div>
+         {one ? votted() : null}
           <div>
             <Image
               src="/sample-avatar.jpg"
@@ -71,6 +74,7 @@ function Home() {
             </button>
           </div>
         </div>
+        
       </div>
       <div className="card m-3">
         <h1 className="text-center pt-3">Secretary Candidates</h1>
@@ -94,7 +98,9 @@ function Home() {
               Vote
             </button>
           </div>
+        {two ? votted() : null}
           <div>
+
             <Image
               src="/sample-avatar.jpg"
               className="w"
@@ -135,6 +141,7 @@ function Home() {
               Vote
             </button>
           </div>
+          {three ? votted() : null}
           <div>
             <Image
               src="/sample-avatar.jpg"
@@ -190,4 +197,14 @@ async function storeVotesInUser(key) {
     });
   });
   console.log(user);
+}
+
+ 
+function votted(){
+  return (
+    <div className="d-flex align-items-center">
+    <h1 className="bg-primary   p-2 rounded m-0">VOTED</h1>
+  </div>
+  )
+
 }

@@ -10,9 +10,7 @@ import { userService } from "services";
 import Image from "next/image";
 
 
-export default Home;
-
-  function Home() {
+export default function Home() {
  
   const [users, setUsers] = useState(null);
   const [votes, setVotes] = useState({
@@ -149,25 +147,3 @@ export default Home;
     </div>
   );
 }
-
-
-// const readData = async () => {
-//   try {
-//     const querySnapshot = await getDocs(collection(db, "votes"));
-//     querySnapshot.forEach((doc) => {
-//       console.log(doc.data());
-
-//       setVotes({
-//         president1: doc.data().president1,
-//         president2: doc.data().president2,
-//         secretary1: doc.data().secretary1,
-//         secretary2: doc.data().secretary2,
-//         treasurer1: doc.data().treasurer1,
-//         treasurer2: doc.data().treasurer2,
-//       });
-//       console.log(`${doc.id} => ${doc.data().president1 }`);
-//     });
-//   } catch (e) {
-//     console.error("Error getting document:", e);
-//   }
-// };

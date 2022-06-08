@@ -10,7 +10,7 @@ export default  function votter(user) {
     <div>
       <h1>Votters</h1>
       <p>who votted</p>  
-      <table>
+      <table className='table'>
         <thead>
           <tr>
             <th>Id</th>

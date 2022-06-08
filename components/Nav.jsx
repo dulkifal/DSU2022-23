@@ -26,7 +26,7 @@ function Nav() {
                 <Image src="/bg.png" className=''  width={80} height={80} />
                 <NavLink href="/" exact className="m-auto  px-5 nav-item nav-link">Home</NavLink>
                 <a onClick={logout} className="m-auto px-5 nav-item nav-link">Logout</a>
-                <h4 className="px-5 card-header text-white m-auto">DSU 2022-23 Election You are logged in for vote </h4>
+                <h4 className="px-5 card-header text-white m-auto">DSU 2022-23 Election  </h4>
             </div>
         </nav>
     );
