@@ -44,7 +44,7 @@ function handler(req, res) {
             treasurer: updatedUser.treasurer ?? false,
             token
         };
-        console.log(response);
+        console.log( response);
         return res.status(200).json(response);
     }
 
@@ -64,7 +64,8 @@ async function updataUser(user){
             return {
                 id: user.id,
                 username: user.username,
-                name: user.Name,
+                Name: user.Name,
+                elsess: 'eslss'
             };
         } 
       } catch (e) {
