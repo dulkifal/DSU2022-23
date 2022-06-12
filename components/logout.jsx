@@ -14,6 +14,8 @@ function Logout() {
     }, []);
 
     function logout() {
+        var audio = new Audio('thanks.mp3');
+        audio.play();
         userService.logout();
     }
 

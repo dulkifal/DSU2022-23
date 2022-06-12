@@ -155,6 +155,7 @@ export default function Home() {
               disabled={three}
               onClick={() => {
                 voteThisCadidate("treasurer2", "treasurer") & setThree(true);
+
               }}
             >
               Vote
@@ -201,7 +202,9 @@ async function storeVotesInUser(key) {
 
  
 function votted(){
+ 
   return (
+  
     <div className="d-flex align-items-center">
     <h1 className="bg-primary   p-2 rounded m-0">VOTED</h1>
   </div>
