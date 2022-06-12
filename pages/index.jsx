@@ -37,10 +37,10 @@ export default function Home() {
         <div className="card-body d-flex flex-row justify-content-around">
           <div>
             <Image
-              src="/sample-avatar.jpg"
+              src="/14720.jpg"
               className="w"
               width={200}
-              height={200}
+              height={220}
             />
             <h5 className="card-title">Card hjhjtitle</h5>
             <button
@@ -57,10 +57,10 @@ export default function Home() {
          {one ? votted() : null}
           <div>
             <Image
-              src="/sample-avatar.jpg"
+              src="/14749.jpg"
               className="w"
               width={200}
-              height={200}
+              height={220}
             />
             <h5 className="card-title">Card title</h5>
             <button
@@ -82,10 +82,10 @@ export default function Home() {
         <div className="card-body d-flex flex-row justify-content-around">
           <div>
             <Image
-              src="/sample-avatar.jpg"
-              className="w"
-              width={200}
-              height={200}
+               src="/14864.jpg"
+               className="w"
+               width={200}
+               height={220}
             />
             <h5 className="card-title">Card title</h5>
             <button
