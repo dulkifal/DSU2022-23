@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <div className="mx-auto">
       <div className="card m-3 ">
-        <h1 className="text-center">Hi {currentUser.name},<br></br> vote for only one candidate from each pair </h1>
+        <h1 className="text-center">Hi {currentUser.Name},<br></br> vote for only one candidate from each pair </h1>
         <h1 className="text-center pt-3 "> Presidential Candidates</h1>
 
         <div className="card-body d-flex flex-row justify-content-around">

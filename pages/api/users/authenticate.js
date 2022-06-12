@@ -38,13 +38,13 @@ function handler(req, res) {
         const response = {
             id: updatedUser.id,
             username: updatedUser.username,
-            name: updatedUser.Name,
+            Name: updatedUser.Name,
             president: updatedUser.president ?? false,
             secretary: updatedUser.secretary ?? false,
             treasurer: updatedUser.treasurer ?? false,
             token
         };
-        console.log( response);
+        // console.log( response);
         return res.status(200).json(response);
     }
 
