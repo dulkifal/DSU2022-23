@@ -31,8 +31,9 @@ export default function Home() {
   return (
     <div className="mx-auto">
       <div className="card m-3 ">
-        <h1 className="text-center">Hi {currentUser.Name},<br></br> vote for only one candidate from each pair </h1>
-        <h1 className="text-center pt-3 "> Presidential Candidates</h1>
+        <h1 className="text-center">Hi {currentUser.Name}, </h1>
+        <h4 className="text-center"> vote for only one candidate from each pair</h4>
+        <h1 className="text-center pt-3 "><u> Presidential Candidates</u></h1>
 
         <div className="card-body d-flex flex-row justify-content-around">
           <div>
@@ -48,7 +49,6 @@ export default function Home() {
               disabled={one}
               onClick={() => {
                 voteThisCadidate("president1", "president") & setOne(true)
-                & handleClick(event);
               }}
             >
               Vote
@@ -77,7 +77,7 @@ export default function Home() {
         
       </div>
       <div className="card m-3">
-        <h1 className="text-center pt-3">Secretary Candidates</h1>
+        <h1 className="text-center pt-3"> <u> Secretary Candidates</u></h1>
 
         <div className="card-body d-flex flex-row justify-content-around">
           <div>
@@ -121,7 +121,7 @@ export default function Home() {
         </div>
       </div>
       <div className="card m-3 ">
-        <h1 className="text-center pt-3">Treasurer Candidates</h1>
+        <h1 className="text-center pt-3"><u> Treasurer Candidates</u></h1>
         <div className="card-body d-flex flex-row justify-content-around">
           <div>
             <Image

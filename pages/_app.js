@@ -69,7 +69,7 @@ function App({ Component, pageProps }) {
                     DSU 2022-23 Election App
                 </p>
                 <p>
-                   contact for help : 0000000000
+                   contact for help : Election Commition
                 </p>
             </div>
         </>
