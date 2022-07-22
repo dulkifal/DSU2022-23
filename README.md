@@ -1,5 +1,9 @@
-# next-js-11-jwt-authentication-example
+Online voting websilte of union election in college
 
-Next.js 11 - JWT Authentication Example
+Used following things
+ 1) Next.js 
+ 2) JWT Authentication 
+ 3) firebase
 
-Documentation and live demo available at https://jasonwatmore.com/post/2021/08/04/next-js-11-jwt-authentication-tutorial-with-example-app
+hosted in vercel.com
+https://dsu-2022-23.vercel.app
