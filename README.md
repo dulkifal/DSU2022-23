@@ -4,6 +4,7 @@ Used following things
  1) Next.js 
  2) JWT Authentication 
  3) firebase
+ 4) boostrap
 
 hosted in vercel.com
 https://dsu-2022-23.vercel.app
